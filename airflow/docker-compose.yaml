@@ -73,11 +73,11 @@ x-airflow-common:
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
     # WARNING: Use _PIP_ADDITIONAL_REQUIREMENTS option ONLY for a quick checks
     # for other purpose (development, test and especially production usage) build/extend Airflow image.
-    # _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
-    # GOOGLE_APPLICATION_CREDENTIALS: /.google/credentials/google_credentials.json
-    # AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT: 'google-cloud-platform://?extra__google_cloud_platform__key_path=/.google/credentials/google_credentials.json'
-    # GCP_PROJECT_ID: 'zoomcamp-389601'
-    # GCP_GCS_BUCKET: 'dtc_data_lake-zoomcamp-389601_zoomcamp-389601'
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
+    GOOGLE_APPLICATION_CREDENTIALS: /.google/credentials/google_credentials.json
+    AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT: 'google-cloud-platform://?extra__google_cloud_platform__key_path=/.google/credentials/google_credentials.json'
+    GCP_PROJECT_ID: 'zoomcamp-389601'
+    GCP_GCS_BUCKET: 'dtc_data_lake-zoomcamp-389601_zoomcamp-389601'
 
     PG_HOST: "${PG_HOST}"
     PG_USER: "${PG_USER}"
@@ -89,7 +89,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
-    # - ~/.google/credentials/:/.google/credentials:ro
+    - ~/.google/credentials/:/.google/credentials:ro
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
